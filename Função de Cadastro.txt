@@ -1,0 +1,7 @@
+Função de Cadastro:
+S - Sim, o usuário pode tentar se passar por outro e acessar os dados do outro
+T - A alteração de senha não possui dupla autenticação, deixando inseguro e permitindo outras pessoas terem acesso
+R - Nenhum log é salvo, então não é possível descobrir quem, quando e como o usuário acessou a plataforma
+I - Quando dá erro na tela de login, aparece as informações do sistema, versão, query, permitindo ao usuário achar vulnerabilidades na ferramenta.
+D - Sim, quando mais de 10 tentativas, o acesso é bloqueado, negando o serviço aos usuários que querem acessar o serviço corretamente
+E - Mudando uma variável na url, o usuário vira administrador, tendo acesso a informações que não deveria
