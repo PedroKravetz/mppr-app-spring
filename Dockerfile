@@ -1,5 +1,9 @@
-FROM node:20
-WORKDIR /app-node
-COPY . .
+FROM node:19
+WORKDIR /app
+COPY package*.json ./
+COPY wait-for-it.sh /app/wait-for-it.sh
 RUN npm install
-ENTRYPOINT ["npm", "start"]
+COPY . .
+EXPOSE 3000
+CMD ["npm", "start"]
+

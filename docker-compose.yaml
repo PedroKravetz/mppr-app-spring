@@ -1,0 +1,54 @@
+version: "3"
+
+services:
+  db:
+    image: mysql:latest
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: testemed
+    volumes:
+      - ./mysql:/var/lib/mysql
+    networks:
+      - my-networks
+
+  # app:
+  #   build: .
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - db
+  #     - redis
+  #   environment:
+  #     - DB_HOST=db
+  #   # irá montar a pasta atual para dentro do container em "/app".
+  #   volumes:
+  #     - .:/app
+  #     # comando "sh -c"  executa o comando npm install, npm start e o watch, tudo em um único shell. O comando watch é executado em um loop infinito usando o comando inotifywait, que irá monitorar alterações em qualquer arquivo na pasta "/app" e automaticamente executará o comando "npm start" quando houver alterações.
+  #   command: sh -c "bash /app/wait-for-it.sh -t 0 db:3306
+  #    -- npm install && npm start && while inotifywait -r -e modify /app; do npm start; done"
+  #   networks:
+  #     - my-networks
+
+  # seed:
+  #   build: .
+  #   depends_on:
+  #     - db
+  #   volumes:
+  #     - ./population.sql:/docker-entrypoint-initdb.d/population.sql
+  #   restart: on-failure
+  #   command: sh -c "sleep 50 && apt-get update > /dev/null && apt-get install -y default-mysql-client > apt-get install -y apt-utils > /dev/null && mysql -uroot -p12345 -h db < /docker-entrypoint-initdb.d/population.sql && sleep 5"
+  #   networks:
+  #     - my-networks
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+    networks:
+      - my-networks
+
+networks:
+  my-networks:
+    driver: bridge
